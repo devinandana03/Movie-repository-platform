@@ -1,0 +1,96 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CRDP</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="{% static 'css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection" />
+  <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bg.css' %}" />
+  <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" /> -->
+  <style>
+		.transparent-nav {
+			background-color: rgba(20, 17, 20, 0.521)!important;
+		}
+	</style>
+
+</head>
+
+<body>
+  <ul id="dropdown1" class="dropdown-content">
+    {% if user.is_authenticated %}
+    <li><a href="{% url 'profile' user.username %}">Profile</a></li>
+    <li><a href="{% url 'change-password' %}">Change Password</a></li>
+    <li class="divider"></li>
+    <li><a href="{% url 'logout' %}">Log out</a></li>
+    {% endif %}
+  </ul>
+  <nav class="transparent-nav">
+		<div class="nav-wrapper">
+			<a href="{% url 'index' %}" class="brand-logo">
+        <img src="{% static 'img/logo2.png' %}" alt="Logo" class="circle-logo">
+      </a>
+			<ul class="right hide-on-med-and-down">
+				<!-- Dropdown Trigger -->
+				{% if user.is_authenticated %}
+				<li><a class="dropdown-trigger" href="#!" data-target="dropdown1">{{ user.username }}<i
+							class="material-icons right"></i></a>
+					{% else %}
+				<li><a href="{% url 'login' %}">Please sign in</a></li>
+				{% endif %}
+
+
+				</li>
+			</ul>
+      
+		</div>
+	</nav>
+
+  {% block banner %}
+  {% endblock %}
+
+  <div class="container">
+    <div class="section">
+
+      {% block content %}
+      {% endblock %}
+
+    </div>
+  </div>
+
+<!-- 
+  <footer class="page-footer grey">
+    <div class="container">
+      <div class="row">
+       <center>&copy;CinematicRepositoryPlatform</center>
+    <div class="footer-copyright">
+      <div class="container">
+        Made by <a class="brown-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+      </div>
+    </div>
+  </footer> -->
+
+
+  <!--  Scripts-->
+
+<!-- Script -->
+<script src="{% static 'js/materialize.min.js' %}"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var elems = document.querySelectorAll('.dropdown-trigger');
+    var instances = M.Dropdown.init(elems);
+  });
+</script>
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="{% static 'js/materialize.js' %}"></script>
+  <script src="{% static 'js/init.js' %}"></script>
+
+</body>
+
+</html>

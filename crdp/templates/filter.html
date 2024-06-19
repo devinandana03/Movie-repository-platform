@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+ 
+
+  {% block content %}
+
+
+      <!--   Icon Section   -->
+      
+      <form method="get" action="{% url 'filter_results' %}">
+        {{ language_filter_form.as_p }}
+        <button type="submit">Filter</button>
+    </form>
+    {% endblock %}

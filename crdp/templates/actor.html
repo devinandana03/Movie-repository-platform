@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+ 
+
+  {% block content %}
+
+      <!--   Icon Section   -->
+      <div class="row">
+        
+       <div class="col s12 m12">
+         <div class="card">
+           <div class="card-image">
+             <img src="{% static 'img/icons/actor_2.jpg' %}">
+             {% if photo_url %}
+             <img id="img-custom-circle-actor" src="{{ photo_url }}" alt="{{ actor.name }} Photo">
+             {% endif %}
+             <span style="font-size: 30px" class="card-title"><b>{{ actor }}</b></span>
+           </div>
+           
+         </div>
+        </div>
+        <h4 class="grey-text">Known For:</h4>
+        <hr>
+        {% for  movie in movie_data %}
+      
+        <div class="col s12 m4">
+          <div class="card">
+            <div class="card-image">
+              <a href="{% url 'movie-details' movie.imdbID %}"><img src="{{ movie.Poster.url }}"></a>
+              <span class="card-title"><b>{{ movie.Title }}</b></span>
+            </div>
+            <div class="card-content">
+              <span class="right"><i class="material-icons left">date_range</i>{{ movie.Year }}</span>
+              <p><b>{{ movie.Type }}</b></p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        
+        {% if movie_data.has_previous %}
+
+          <a href="?page={{ movie_data.previous_page_number }}">class="waves-effect waves-light btn"><i class="material-icons left">arrow_back</i>Back</a>
+          {% endif %}
+          {% if movie_data.has_next %}
+
+          <a href="?page={{ movie_data.next_page_number }}">class="waves-effect waves-light btn"><i class="material-icons left">add</i>Next</a>
+
+          {% endif %}
+
+      
+      </div>
+{% endblock %}

@@ -1,0 +1,87 @@
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+ 
+
+ nav ul a,
+ nav .brand-logo {
+   color: #fff;
+ }
+ 
+ p {
+   line-height: 2rem;
+ }
+ /* 
+ .sidenav-trigger {
+   color: #fff;
+ } */
+ .parallax img{
+   position:absolute;
+   animation:fade 8s ease infinite;
+ }
+ @keyframes fade {
+   0%{opacity:1;}
+   17%{opacity:1;}
+   25%{opacity:0;}
+   92%{opacity:0;}
+   100%{opacity:1;}
+ }
+ .parallax img:nth-of-type(1) { animation-delay:6s;}
+ .parallax img:nth-of-type(2) { animation-delay:4s;}
+ .parallax img:nth-of-type(3) { animation-delay:2s;}
+ .parallax img:nth-of-type(4) { animation-delay:0s;}
+ 
+ .parallax-container {
+   min-height: 720px;
+   line-height: 0;
+   height: auto;
+   color: rgba(255,255,255,.9);
+ }
+   .parallax-container .section {
+     width: 100%;
+   }
+ 
+ @media only screen and (max-width : 992px) {
+   .parallax-container .section {
+     position: absolutfe;
+     top: 40%;
+   }
+   #index-banner .section {
+     top: 10%;
+   }
+ }
+ 
+ @media only screen and (max-width : 600px) {
+   #index-banner .section {
+     top: 0;
+   }
+ }
+ 
+ .icon-block {
+   padding: 0 15px;
+ }
+ .icon-block .material-icons {
+   font-size: inherit;
+ }
+ 
+ footer.page-footer {
+   margin: 0;
+ }
+ #img-custom-circle-actor {
+   position: absolute;
+   max-width: 30%;
+   max-height: 60%;
+   border-radius: 50%;
+   border: solid 5px rgb(13, 13, 13);
+   z-index: 1;
+   left: 35%;
+   top: 20%;
+ }
+ .transparent-nav {
+   background-color: transparent !important;
+ }
+ 

@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load static %}
+ 
+
+  {% block content %}
+<style>
+    .row,.card-panel.grey.lighten-5.z-depth-1,.card-action{
+      background-color: var(--color-bg);
+      background-image: url(../img/noise.png), radial-gradient(circle, rgb(52 33 56) 0%, rgb(0 0 0) 100%);
+      background-size: 400px, 100% 100vh;
+      background-attachment: fixed;
+    }
+</style>
+
+      <!--   Icon Section   -->
+      <div class="row">
+        <div class="col s12 m12">
+          <div class="card horizontal">
+            <div class="card-image">
+              <img src="{{ movie.Poster.url }}">
+            </div>
+            <div class="card-stacked">
+              <div class="card-content">
+                <p><span class="card-title left"><b>{{ movie.Title }}</b></span>
+                <span class="right"><b>{{ movie.Type }}</b></span></p>
+                <br>
+                <p>{{ movie.Plot }}</p>
+                <hr>
+                <br>
+                
+                <div class="col s12 m12">
+                  <div class="card-panel grey lighten-5 z-depth-1">
+                    <div class="row valign-wrapper">
+                      <div class="col s4 center-align">
+
+                        {% if review.user.profile.picture %}
+                        <img src="{{ review.user.profile.picture }}" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
+
+                        {% else %}
+                        <img src="{% static 'img/no_avatar.jpg' %}" alt="" class="circle">
+                        {% endif %}
+
+                        <span><b>{{ review.user.first_name }} {{ review.user.last_name }}</b></span>
+                        <span>@{{ review.user.username }}</span>
+                      </div>
+                      <div class="col s8">
+                        <h5>Rated this movie</h5>
+                        <h5>{{ review.rate }} /10</h5>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>              
+            </div>     
+          </div> 
+          
+          <h4>Reviews</h4>
+          <div class="row">
+            <div class="col s12 m12">
+              <div class="card">          
+                <div class="card-content">
+                  <span class="card-title"><b>{{ review.user.first_name }} {{ review.user.last_name }}</b><i class="material-icons right">rate_review</i><span class="right">Review</span></span>
+                  <p>@{{ review.user.username }}</p>
+                  <p><b>{{ review.date }}</b></p>
+                  <br>
+                  {{ review.text }}                
+                </div>
+                  <div class="card-action">
+                    <a href="{% url 'user-review-like' review.user.username movie.imdbID %}"><i class="material-icons">thumb_up</i>{{ review.likes }}</a>
+                    <a href="{% url 'user-review-unlike' review.user.username movie.imdbID %}"><i class="material-icons">thumb_down</i>{{ review.unlikes }}</a>
+                  </div>
+        
+              </div>
+            </div>
+          </div>
+
+          <h4>Comments</h4>
+          <div class="row">
+            <div class="col s12 m12">
+              <div class="card">          
+                <div class="card-content">
+                  <ul class="collection">
+
+                    {% for comment in comments %}
+                    <li class="collection-item avatar">
+                      {% if comment.user.profile.picture %}
+                        <img src="{{ comment.user.profile.picture }}" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
+
+                        {% else %}
+                        <img src="{% static 'img/no_avatar.jpg' %}" alt="" class="circle">
+                        {% endif %}
+                      <span class="title"><b>{{ comment.user.first_name }} {{ comment.user.last_name }}</b></span>
+                      <p>@{{ comment.user.username }}</p>
+                      <p>{{ comment.date }}</p>
+                      <br>
+                      {{ comment.body }}                      
+                      <a class="secondary-content" href=""><i class="material-icons red-text">delete</i></a>
+                    </li>
+                    <div class="card-action">
+                      <form method="post" action="" role="form" class="col s12">
+                        {% csrf_token %}
+                        <div class="input-field col s12">
+                         {{ form.body }}
+                          <label for="textarea1">Comment</label>
+                        </div>
+                        <button type="submit" class="waves-effect waves-light btn"><i class="material-icons left">send</i>Send</button>
+                      </form>
+                    </div>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>         
+      </div>
+    {% endblock %}

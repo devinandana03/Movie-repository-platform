@@ -1,0 +1,220 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>CRDP</title>
+	<meta name="description" content="An experimental 3D stack motion animation on scroll." />
+	<meta name="keywords" content="nft card animation, gsap, scroll animation, 3d" />
+	<meta name="author" content="Codrops" />
+	<link rel="shortcut icon" href="{% static 'favicon.ico' %}">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'css/materialize.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'css/materialize.min.css' %}" />
+	
+	<script>
+		document.documentElement.className = 'js';
+	</script>
+	<style>
+		.transparent-nav {
+			background-color: rgba(20, 17, 20, 0.521) !important;
+		}
+	</style>
+	<style>
+		.dropdown-content li > a {
+			color: rgb(20, 8, 20) !important; /* Change this to your desired color */
+		}
+		.transparent-nav {
+			background-color: rgba(20, 17, 20, 0.521) !important;
+		}
+		.dropdown-content li > a {
+			color: rgb(20, 8, 20) !important; /* Change this to your desired color */
+		}
+		.signin-link {
+			color: #fff; /* Change this to your desired color */
+		}
+		.logo-link {
+			color: #fff; /* Change this to your desired color */
+		}
+		.dropdown-trigger {
+			color: #fff !important; /* Change this to your desired color */
+		}
+	</style>		
+
+</head>
+
+<body class="loading">
+	<ul id="dropdown1" class="dropdown-content">
+		{% if user.is_authenticated %}
+		<li><a href="{% url 'profile' user.username %}">Profile</a></li>
+		<li><a href="{% url 'change-password' %}">Change Password</a></li>
+		<li class="divider"></li>
+		<li><a href="{% url 'logout' %}">Log out</a></li>
+		{%else%}
+		<li><a href="{% url 'login' %}" class="signin-link">Please sign in</a></li>
+		{% endif %}
+	</ul>
+	<nav class="transparent-nav">
+		<div class="nav-wrapper">
+			<a href="{% url 'index' %}" class="brand-logo logo-link">
+				<img src="{% static 'img/logo2.png' %}" alt="Logo" class="circle-logo">
+
+			</a>
+			<ul class="right hide-on-med-and-down">
+				<!-- Dropdown Trigger -->
+				{% if user.is_authenticated %}
+				<li><a class="dropdown-trigger" href="#!" data-target="dropdown1">{{ user.username }}<i
+							class="material-icons right"></i></a>
+					{% else %}
+					<li><a href="{% url 'login' %}" class="signin-link">Please sign in</a></li>
+				{% endif %}
+
+
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<main>
+		<!-- <header class="frame">
+			<nav class="top-nav">
+				<div class="top-nav__container">
+					<a href="/" class="top-nav__logo">Your Site Name</a>
+					<button class="top-nav__signup">Sign Up</button>
+				</div>
+			</nav>
+		</header> -->
+
+		<div class="intro">
+			<h2 class="intro__title">The Next Evolution</h2>
+			<p class="intro__hint">Scroll into the future</p>
+			<div class="grid">
+				<div class="card">
+					<div class="card__img">
+						<div class="card__img stand"></div>
+					</div>
+					<h6 class="card__title">AI Horizons</h6>
+					<h6 class="card__subtitle">Beyond Human Limits</h6>
+					<span class="card__meta">V1.0</span>
+					<p class="card__description">Explore the future where AI transforms imagination into reality.</p>
+				</div><!-- /card -->
+				<div class="card">
+					<div class="card__img">
+						<div class="card__img transit"></div>
+					</div>
+					<h6 class="card__title">Tech Odyssey</h6>
+					<h6 class="card__subtitle">Unveiling Tomorrow</h6>
+					<span class="card__meta">V2.0</span>
+					<p class="card__description">Embark on a journey into the realm of cutting-edge technology reshaping
+						our world.</p>
+				</div><!-- /card -->
+				<div class="card">
+					<div class="card__img">
+						<div class="card__img p4webp"></div>
+					</div>
+					<h6 class="card__title">Digital Frontiers</h6>
+					<h6 class="card__subtitle">Pushing Boundaries</h6>
+					<span class="card__meta">V3.0</span>
+					<p class="card__description">Enter the realm where innovation meets possibility, shaping the future
+						of humanity.</p>
+				</div><!-- /card -->
+				<div class="card">
+					<div class="card__img">
+						<div class="card__img jpg2"></div>
+					</div>
+					<h6 class="card__title">AI Nexus</h6>
+					<h6 class="card__subtitle">Bridging Realms</h6>
+					<span class="card__meta">V4.0</span>
+					<p class="card__description">Dive into the interconnected world of AI, where algorithms shape the
+						future of human experience.</p>
+				</div><!-- /card -->
+				<div class="card">
+					<div class="card__img ninjak"></div>
+					<h6 class="card__title">AI Innovate</h6>
+					<h6 class="card__subtitle">Pioneering Tomorrow</h6>
+					<span class="card__meta">V5.0</span>
+					<p class="card__description">Join the forefront of AI innovation, where creativity meets
+						computational intelligence to shape a better future.</p>
+				</div><!-- /card -->
+				<div class="card">
+					<div class="card__img cryo"></div>
+					<h6 class="card__title">AI Horizons</h6>
+					<h6 class="card__subtitle">Beyond Human Limits</h6>
+					<span class="card__meta">V6.0</span>
+					<p class="card__description">Explore the future where AI transforms imagination into reality.</p>
+				</div><!-- /card -->
+				<div class="card">
+					<div class="card__img jpg3"></div>
+					<h6 class="card__title">AI Frontier</h6>
+					<h6 class="card__subtitle">Exploring New Horizons</h6>
+					<span class="card__meta">V7.0</span>
+					<p class="card__description">Venture into uncharted territories where AI blazes trails towards
+						unprecedented possibilities.</p>
+				</div><!-- /card -->
+				<div class="card">
+					<div class="card__img miller"></div>
+					<h6 class="card__title">AI Visionary</h6>
+					<h6 class="card__subtitle">Envisioning Tomorrow</h6>
+					<span class="card__meta">V8.0</span>
+					<p class="card__description">Embrace the visionary realm of AI, where dreams of the future become
+						the reality of today.</p>
+				</div><!-- /card -->
+				<div class="card">
+					<div class="card__img jpg1"></div>
+					<h6 class="card__title">AI Odyssey</h6>
+					<h6 class="card__subtitle">Journey to Tomorrow</h6>
+					<span class="card__meta">V9.0</span>
+					<p class="card__description">Embark on an epic odyssey through the realms of AI, where innovation
+						knows no bounds.</p>
+				</div><!-- /card -->
+				
+			</div>
+		</div>
+		<h2 class="section-title">Get Your Favourite Movie</h2>
+		<form action="{% url 'index' %}" method="get">
+			<div class="search-container">
+				<input type="text" id="search-input" name="q" placeholder="Search...">
+				<button type="submit" id="search-button">Search</button>
+			</div>
+		</form>
+
+		</div>
+		</div>
+		<section class="outro">
+			
+		</section>
+	
+		
+		
+		<!-- </div>
+		<!-- <section class="outro">
+			
+		</section> --> -->
+
+
+		<!-- <p class="credits">Made by <a href="https://twitter.com/codrops">@codrops</a></p> -->
+	</main>
+	<script src="{% static 'js/materialize.min.js' %}"></script>
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			var elems = document.querySelectorAll('.dropdown-trigger');
+			var instances = M.Dropdown.init(elems);
+		});
+	</script>
+	<script src="{% static 'js/gsap.min.js' %}"></script>
+	<script src="{% static 'js/ScrollTrigger.min.js' %}"></script>
+	<!-- Image preloader -->
+	<script src="{% static 'js/imagesloaded.pkgd.min.js' %}"></script>
+	<!-- Remove the following two lines if you don't want smooth scrolling -->
+	<script src="{% static 'js/lenis.js' %}"></script>
+	<script src="{% static 'js/smoothscroll.js' %}"></script>
+	<script type="module" src="{% static 'js/index.js' %}"></script>
+</body>
+
+</html>

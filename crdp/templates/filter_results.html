@@ -1,0 +1,46 @@
+<!-- filter_results.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="row">
+    {% for movie in movies %}
+    <div class="col s12 m4">
+        <div class="card">
+            <div class="card-image">
+                <!-- Clickable poster image -->
+                <img src="https://image.tmdb.org/t/p/w500/{{ movie.poster_path }}" alt="{{ movie.title }}">
+                <span class="card-title"><b>{{ movie.title }}</b></span>
+            </div>
+            <div class="card-content">
+                {% if movie.release_date %}
+                <p><b>{{ movie.release_date|slice:":4" }}</b></p>
+                {% endif %}
+                {% if movie.media_type %}
+                <p><b>{{ movie.media_type }}</b></p>
+                {% endif %}
+            </div>
+            <!-- Hidden details section -->
+            <div class="details" id="details-{{ movie.id }}" style="display: none;">
+                <p><b>Release Year:</b> {{ movie.release_date|slice:":4" }}</p>
+                <p><b>Duration:</b> {{ movie.duration }} minutes</p>
+                <p><b>Rating:</b> {{ movie.rating }}</p>
+                <p><b>Genres:</b> {{ movie.genres }}</p>
+                <p><b>Description:</b> {{ movie.description }}</p>
+                <p><b>Cast:</b> {{ movie.cast }}</p>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>No movies found.</p>
+    {% endfor %}
+</div>
+
+<script>
+    // Function to toggle movie details visibility
+    function toggleDetails(movieId) {
+        const detailsSection = document.getElementById(`details-${movieId}`);
+        detailsSection.style.display = detailsSection.style.display === 'none' ? 'block' : 'none';
+    }
+</script>
+{% endblock %}

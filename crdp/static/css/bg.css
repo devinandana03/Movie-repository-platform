@@ -1,0 +1,429 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+:root {
+  font-size: 12px;
+  --color-text: #fff;
+  --color-bg: #000;
+  --color-link: #fff;
+  --color-link-hover: #c471e1;
+  --page-padding: 1.5rem;
+  --color-card-1: #d09df2;
+  --color-card-2: #9df2eb;
+  --color-card-3: #f5e2a4;
+  --color-card-4: #d09df2;
+  --color-card-5: #9dcaf2;
+  --color-card-6: #f29dcc;
+  --color-bg-card: rgba(255, 255, 255, 0.2);
+  --color-bg-card-inner: rgb(41 27 41);
+}
+
+body {
+  
+  margin: 0;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  font-family: "Kode Mono", monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-image: url(../img/noise.png), radial-gradient(circle, rgb(52 33 56) 0%, rgb(0 0 0) 100%);
+  background-size: 400px, 100% 100vh;
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+/* Page Loader */
+.js .loading::before,
+.js .loading::after {
+  content: '';
+  position: fixed;
+  z-index: 1000;
+}
+
+.js .loading::before {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--color-bg);
+}
+
+.js .loading::after {
+  top: 50%;
+  left: 50%;
+  width: 60px;
+  height: 60px;
+  margin: -30px 0 0 -30px;
+  border-radius: 50%;
+  opacity: 0.4;
+  background: var(--color-link);
+  animation: loaderAnim 0.7s linear infinite alternate forwards;
+
+}
+
+@keyframes loaderAnim {
+  to {
+    opacity: 1;
+    transform: scale3d(0.5,0.5,1);
+  }
+}
+
+a {
+  text-decoration: none;
+  color: var(--color-link);
+  outline: none;
+  cursor: pointer;
+}
+
+a:hover {
+  text-decoration: none;
+  color: var(--color-link-hover);
+  outline: none;
+}
+
+/* Better focus styles from https://developer.mozilla.org/en-US/docs/Web/CSS/:focus-visible */
+a:focus {
+  /* Provide a fallback style for browsers
+   that don't support :focus-visible */
+  outline: none;
+  background: lightgrey;
+}
+
+a:focus:not(:focus-visible) {
+  /* Remove the focus indicator on mouse-focus for browsers
+   that do support :focus-visible */
+  background: transparent;
+}
+
+a:focus-visible {
+  /* Draw a very noticeable focus style for
+   keyboard-focus on browsers that do support
+   :focus-visible */
+  outline: 2px solid red;
+  background: transparent;
+}
+
+.unbutton {
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+.unbutton:focus {
+  outline: none;
+}
+
+.frame {
+  padding: var(--page-padding);
+  position: relative;
+  display: grid;
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  grid-row-gap: 1rem;
+  grid-column-gap: 2rem;
+  pointer-events: none;
+  justify-items: start;
+  grid-template-columns: auto auto;
+  grid-template-areas: 'title title' 'back archive' 'sponsor sponsor' 'hire hire';
+}
+
+.frame a {
+  pointer-events: auto;
+}
+
+.frame__title {
+  grid-area: title;
+  font-size: inherit;
+  margin: 0;
+}
+
+.frame__back {
+  grid-area: back;
+  justify-self: start;
+}
+
+.frame__archive {
+  grid-area: archive;
+  justify-self: start;
+}
+
+.frame__sub {
+  display: grid;
+  position: fixed;
+  bottom: var(--page-padding);
+  right: var(--page-padding);
+  width: 50px;
+  height: 50px;
+  border: 1px solid var(--color-link-hover);
+  place-items: center;
+  border-radius: 50%;
+}
+
+.frame__sub:hover::before,
+.frame__sub:focus::before  {
+  content: '';
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: -30%;
+  left: -30%;
+}
+
+.frame__sub svg {
+  fill: var(--color-link-hover);
+  width: 25px;
+  height: 25px;
+}
+
+.modal {
+  pointer-events: none;
+  opacity: 0;
+  transform: translate3d(0,20px,0);
+  position: absolute;
+  bottom: 55px;
+  right: 0px;
+  background: #8a74c4;
+  color: #fff;
+  width: 280px;
+  max-width: calc(100vw - var(--page-padding) * 2);
+  line-height: 1.4;
+  padding: 1.5rem;
+  font-size: 16px;
+  border-radius: 8px;
+  transition: all 0.3s;
+}
+
+.frame__sub:hover .modal,
+.frame__sub:focus .modal {
+  pointer-events: auto;
+  opacity: 1;
+  transform: translate3d(0px,0px,0px);
+}
+
+.frame__hire {
+  grid-area: hire;
+  max-width: 200px;
+}
+
+.frame__demos {
+  grid-area: demos;
+  display: flex;
+  gap: 1rem;
+}
+
+main {
+  position: relative;
+}
+
+.intro {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 20vh 20vh auto;
+  grid-template-areas: 'intro-title' 'intro-hint' '...';
+  place-items: center;
+  padding: 0 var(--page-padding);
+}
+
+.intro__title {
+  text-transform: uppercase;
+  font-size: clamp(2rem,7vw,8rem);
+  font-weight: 400;
+  grid-area: intro-title;
+  position: relative;
+  z-index: 100;
+  align-self: center;
+  margin: 0;
+  text-align: center;
+}
+
+.intro__hint {
+  grid-area: intro-hint;
+  position: relative;
+  z-index: 100;
+  align-self: center;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.intro__hint::after {
+  content: '\00BB';
+  position: absolute;
+  top: 100%;
+  left: 0%;
+  text-align: center;
+  font-size: 3rem;
+  width: 100%;
+  transform: rotate(90deg);
+  animation: pulse 0.3s linear alternate infinite;
+}
+
+@keyframes pulse {
+  to {
+    top: 120%;
+  }
+}
+
+.outro {
+  display: grid;
+  place-items: center;
+  margin: 40vh 0;
+}
+
+.outro__title {
+  font-weight: 300;
+  font-size: clamp(1.5rem,10vw,2rem);
+}
+
+.grid {
+  position: relative;
+  perspective: 1000px;
+  align-self: start;
+  grid-area: intro-title;
+  grid-row: 1 / span 3;
+  display: grid;
+  grid-template-columns: repeat(3,auto);
+  justify-content: center;
+  gap: 3rem;
+  filter: brightness(70%);
+}
+
+
+body {
+    margin: 0;
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    font-family: "Kode Mono", monospace;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-image: url(../img/noise.png), radial-gradient(circle, rgb(52 33 56) 0%, rgb(0 0 0) 100%);
+    background-size: 400px, 100% 100vh;
+    background-attachment: fixed;
+    overflow-x: hidden;
+  }
+  
+.top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    background-color: rgba(24, 16, 31, 0.5); /* Dark violet transparent color */
+    backdrop-filter: blur(5px); /* Optional: Adds a blur effect for a more transparent look */
+    padding: 10px 0;
+    box-sizing: border-box; /* Include padding and borders in the width calculation */
+  }
+  
+  .top-nav__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .top-nav__logo {
+    color: #fff;
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .top-nav__signup {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 5px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .top-nav__signup:hover {
+    background-color: rgba(25, 3, 42, 0.7);
+  }
+  .transparent-nav a {
+    color: white !important;
+}
+
+.circle-logo {
+  width: 150px; /* Adjust size as needed */
+  height: 63px;
+  object-fit: cover; /* Maintain aspect ratio and fill container */
+  object-position: center; /* Center the image within the circle */
+}
+
+.card-content{
+    background-color: var(--color-bg);
+    background-image: url(../img/noise.png), radial-gradient(circle, rgb(52 33 56) 0%, rgb(0 0 0) 100%);
+    background-size: 400px, 100% 100vh;
+    background-attachment: fixed;
+}
+
+.collection with-header{
+    background-color: var(--color-bg);
+    background-image: url(../img/noise.png), radial-gradient(circle, rgb(52 33 56) 0%, rgb(0 0 0) 100%);
+    background-size: 400px, 100% 100vh;
+    background-attachment: fixed;
+}
+.collection-header,.card-panel.grey.lighten-5.z-depth-1{
+    background-color: var(--color-bg);
+    background-image: url(../img/noise.png), radial-gradient(circle, rgb(52 33 56) 0%, rgb(0 0 0) 100%);
+    background-size: 400px, 100% 100vh;
+    background-attachment: fixed;
+}
+
+.collection-item{
+    background-color: var(--color-bg);
+    background-image: url(../img/noise.png), radial-gradient(circle, rgb(52 33 56) 0%, rgb(0 0 0) 100%);
+    background-size: 400px, 100% 100vh;
+    background-attachment: fixed;
+}
+.dropdown-content a {
+    color: rgb(20, 8, 20) !important;
+}
+.edit-profile-btn {
+    background-color:rgb(59, 55, 60) !important; /* Initial color */
+    color: white !important; /* This changes the text color to white */
+}
+
+.edit-profile-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important; /* Color on hover */
+}
+.show-list-link {
+    color: white !important; /* This changes the text color to white */
+}
+.waves-effect.waves-light.btn {
+    background-color: rgb(59, 55, 60) !important; /* Initial color */
+    color: white !important; /* This changes the text color to white */
+}
+
+.waves-effect.waves-light.btn:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important; /* Color on hover */
+}
+
+.show-list-link:hover {
+    color:  rgba(255, 255, 255, 0.1)  !important; /* This changes the text color to red when hovered */
+}
+
+.card-image {
+    background-color: var(--color-bg);
+    background-image: url(../img/noise.png), radial-gradient(circle, rgb(52 33 56) 0%, rgb(0 0 0) 100%);
+    background-size: 400px, 100% 100vh;
+    background-attachment: fixed;
+}
+.card-action{
+  background-color: var(--color-bg);
+  background-image: url(../img/noise.png), radial-gradient(circle, rgb(52 33 56) 0%, rgb(0 0 0) 100%);
+  background-size: 400px, 100% 100vh;
+  background-attachment: fixed;
+}
